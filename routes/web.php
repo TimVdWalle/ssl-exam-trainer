@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PracticeExamController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-    Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/', [HomeController::class, 'show'])->name('home');
+Route::get('/practice-exam', [PracticeExamController::class, 'show'])->name('practice-exam.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
