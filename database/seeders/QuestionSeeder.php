@@ -18,8 +18,12 @@ class QuestionSeeder extends Seeder
         $json = File::get("database/data/questions.json");
         $data = json_decode($json);
 
+        // Load the correct answers JSON
+        $correctAnswersJson = File::get("database/data/answers.json");
+        $correctAnswers = json_decode($correctAnswersJson, true);
+
         foreach ($data as $obj) {
-//            dd($obj->question_number);
+//            dd($obj);
 
             $question = Question::create([
                 'number' => $obj->question_number,
@@ -27,12 +31,14 @@ class QuestionSeeder extends Seeder
                 'url' => $obj->url ?? null,
             ]);
 
-            foreach ($obj->options as $option => $answer) {
+            // Assuming $obj->answers is an array of answer options (A, B, C, etc.)
+            foreach ($obj->options as $option => $answerText) {
                 Answer::create([
                     'question_id' => $question->id,
                     'option' => $option,
-                    'answer' => $answer,
-                    'is_correct' => false,
+                    'answer' => $answerText,
+                    // Set is_correct based on whether this option matches the correct answer in $correctAnswers
+                    'is_correct' => $correctAnswers[$obj->question_number] == $option,
                 ]);
             }
         }
