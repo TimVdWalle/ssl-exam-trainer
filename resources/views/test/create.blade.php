@@ -42,4 +42,36 @@
     </section>
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const answers = document.querySelectorAll('.answer-label input[type="radio"]');
+
+            answers.forEach(answer => {
+                answer.addEventListener('change', function () {
+                    // Remove selected class from all answers in the same question group
+                    const name = this.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                        input.closest('.answer-label').classList.remove('selected');
+                    });
+
+                    // Add selected class to the clicked answer's label
+                    if (this.checked) {
+                        this.closest('.answer-label').classList.add('selected');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <style>
+        .selected,
+        .selected:hover
+        {
+            background-color: #0071F4;
+            color: white;
+        }
+    </style>
+
+
 </x-app-layout>
