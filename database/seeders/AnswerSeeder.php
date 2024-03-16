@@ -14,18 +14,6 @@ class AnswerSeeder extends Seeder
      */
     public function run(): void
     {
-        $json = File::get("database/data/answers.json");
-        $data = json_decode($json);
 
-        foreach ($data as $obj) {
-            foreach ($obj->answers as $ans) {
-                Answer::create([
-                    'question_id' => $question->id,
-                    'option' => $ans->option,
-                    'answer' => $ans->answer,
-                    'is_correct' => $ans->is_correct,
-                ]);
-            }
-        }
     }
 }
