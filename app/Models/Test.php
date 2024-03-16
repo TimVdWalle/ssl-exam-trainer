@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TestSession extends Model
+class Test extends Model
 {
     use HasFactory;
 
@@ -24,6 +24,6 @@ class TestSession extends Model
 
     public function userAnswers()
     {
-        return $this->hasMany(UserAnswer::class, 'test_session_id');
+        return $this->hasMany(UserAnswer::class, 'test_id');
     }
 }

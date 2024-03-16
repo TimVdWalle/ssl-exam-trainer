@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->boolean('is_correct');
 
-            $table->foreignId('test_session_id')->constrained()->onDelete('cascade');
+            $table->foreignId('test_id')->constrained()->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->foreignId('answer_id')->nullable()->constrained()->onDelete('set null');
 

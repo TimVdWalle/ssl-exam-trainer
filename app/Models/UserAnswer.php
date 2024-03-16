@@ -10,7 +10,7 @@ class UserAnswer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'test_session_id',
+        'test_id',
         'question_id',
         'answer_id',
         'is_correct',
