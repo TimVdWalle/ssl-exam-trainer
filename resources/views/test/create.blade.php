@@ -23,9 +23,18 @@
 
                 <!-- Questions list -->
                 <div class="max-w-3xl mx-auto">
-                    @foreach($questions as $question)
-                        <x-question :question="$question" />
-                    @endforeach
+                    <form action="{{ route('practice-exam.store') }}" method="POST">
+                        @csrf
+
+                        @foreach($questions as $question)
+                            <x-question :question="$question" />
+                        @endforeach
+
+                        <div class="flex flex-col sm:flex-row justify-start max-w-xs mx-auto sm:max-w-md lg:mx-0">
+                            <button type="submit" class="btn text-white bg-blue-600 hover:bg-blue-700 shadow">Verzenden</button>
+                        </div>
+
+                    </form>
                 </div>
 
             </div>
