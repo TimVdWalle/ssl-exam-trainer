@@ -41,7 +41,7 @@
                         <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('home') }}">Home</a>
                     </li>
                     <li>
-                        <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('practice-exam.show') }}">Oefen examen</a>
+                        <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('practice-exam.show') }}">Start test</a>
                     </li>
 
                     <!-- 1st level: hover -->
@@ -143,36 +143,36 @@
                 >
                     <ul class="px-5 py-2">
                         <li>
-                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="pricing.html">Pricing</a>
+                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="{{route('home')}}">Home</a>
                         </li>
                         <li>
-                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="about.html">About us</a>
+                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="{{ route('practice-exam.show') }}">Start test</a>
+                        </li>
+{{--                        <li>--}}
+{{--                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="tutorials.html">Tutorials</a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="blog.html">Blog</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="py-2 my-2 border-t border-b border-gray-200">--}}
+{{--                            <span class="flex text-gray-600 hover:text-gray-900 py-2">Resources</span>--}}
+{{--                            <ul class="pl-4">--}}
+{{--                                <li>--}}
+{{--                                    <a class="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2" href="documentation.html">Documentation</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2" href="support.html">Support center</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2" href="404.html">404</a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+                        <li>
+                            <a class="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center" href="{{ route('login') }}">Sign in</a>
                         </li>
                         <li>
-                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="tutorials.html">Tutorials</a>
-                        </li>
-                        <li>
-                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="blog.html">Blog</a>
-                        </li>
-                        <li class="py-2 my-2 border-t border-b border-gray-200">
-                            <span class="flex text-gray-600 hover:text-gray-900 py-2">Resources</span>
-                            <ul class="pl-4">
-                                <li>
-                                    <a class="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2" href="documentation.html">Documentation</a>
-                                </li>
-                                <li>
-                                    <a class="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2" href="support.html">Support center</a>
-                                </li>
-                                <li>
-                                    <a class="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2" href="404.html">404</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center" href="signin.html">Sign in</a>
-                        </li>
-                        <li>
-                            <a class="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2" href="signup.html">
+                            <a class="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2" href="{{ route('register') }}">
                                 <span>Sign up</span>
                                 <svg class="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fill="#999" fill-rule="nonzero" />
