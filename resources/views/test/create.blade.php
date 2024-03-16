@@ -71,6 +71,13 @@
             background-color: #0071F4;
             color: white;
         }
+
+        .answer-icon {
+            color: rgb(37 99 235 / var(--tw-text-opacity));;
+        }
+        .selected .answer-icon {
+            color: white;;
+        }
     </style>
 
 
