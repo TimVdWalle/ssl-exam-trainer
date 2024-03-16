@@ -17,7 +17,6 @@
                     <h2 class="h2 mb-4">Proefexamen</h2>
                     <p class="text-xl text-gray-600 text-left">
                         Dit is een proefexamen. 15 vragen werden geselecteerd uit een totaal van 196 vragen zoals die ook op het echte examen kunnen gevraagd worden.
-                        <br />
                         Je moet 60% van de vragen juist hebben om geslaagd te zijn. Vragen overlaten wordt niet bestraft.
                     </p>
                 </div>
