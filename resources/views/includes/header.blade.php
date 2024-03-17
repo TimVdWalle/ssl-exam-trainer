@@ -41,7 +41,7 @@
                         <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('home') }}">Home</a>
                     </li>
                     <li>
-                        <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('practice-exam.show') }}">Start test</a>
+                        <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('practice-exam.create') }}">Start test</a>
                     </li>
 
                     <!-- 1st level: hover -->
@@ -146,7 +146,7 @@
                             <a class="flex text-gray-600 hover:text-gray-900 py-2" href="{{route('home')}}">Home</a>
                         </li>
                         <li>
-                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="{{ route('practice-exam.show') }}">Start test</a>
+                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="{{ route('practice-exam.create') }}">Start test</a>
                         </li>
 {{--                        <li>--}}
 {{--                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="tutorials.html">Tutorials</a>--}}
