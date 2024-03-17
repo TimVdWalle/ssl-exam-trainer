@@ -20,7 +20,7 @@ class CreateNewHashAction
 //        do {
             // https://stackoverflow.com/questions/73845399/phpstan-parameter-1-length-of-function-random-bytes-expects-int1-max-int
             // bin2hex doubles the chars, so we halve the length first
-            $newHash = bin2hex(random_bytes(max(4, intval($hashLength / 2))));
+            $newHash = bin2hex(random_bytes(max(2, intval($hashLength / 2))));
 //        } while (Test::where('hash_column', $newHash)->exists()); // Check if it exists
 
 
