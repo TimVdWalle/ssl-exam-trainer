@@ -16,8 +16,8 @@
                 <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
                     <h2 class="h2 mb-4">Proefexamen</h2>
                     <p class="text-xl text-gray-600 text-left">
-                        Dit is een proefexamen. 15 vragen werden geselecteerd uit een totaal van 196 vragen zoals die ook op het echte examen kunnen gevraagd worden.
-                        Je moet 60% van de vragen juist hebben om geslaagd te zijn. Vragen overlaten wordt niet bestraft.
+                        Dit is een proefexamen. {{config('ssl_exam_trainer.questions_per_test')}} vragen werden geselecteerd uit een totaal van {{\App\Models\Question::count() }} vragen zoals die ook op het echte examen kunnen gevraagd worden.
+                        Je moet {{intval(config('ssl_exam_trainer.min_correct_to_pass') / config('ssl_exam_trainer.questions_per_test') * 100) }}% van de vragen juist hebben om geslaagd te zijn. Vragen overlaten wordt niet bestraft.
                     </p>
                 </div>
 
