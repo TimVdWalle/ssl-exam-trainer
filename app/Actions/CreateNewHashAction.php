@@ -4,7 +4,11 @@ namespace App\Actions;
 
 class CreateNewHashAction
 {
-    public function handle()
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function handle(): string
     {
         $hash = bin2hex(random_bytes(8));
         return $hash;

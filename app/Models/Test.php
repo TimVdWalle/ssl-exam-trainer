@@ -12,7 +12,7 @@ class Test extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+     protected $fillable = [
         'user_id', // Assuming you track which user the session belongs to
         'score',   // Assuming you store a score or outcome of the session
         'passed',  // Whether or not the user passed the session
@@ -20,11 +20,18 @@ class Test extends Model
     ];
 
     // Define relationships here, for example:
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, Test>
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAnswer>
+     */
     public function userAnswers()
     {
         return $this->hasMany(UserAnswer::class, 'test_id');

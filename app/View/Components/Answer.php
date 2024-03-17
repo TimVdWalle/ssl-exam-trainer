@@ -8,9 +8,9 @@ use Illuminate\View\Component;
 
 class Answer extends Component
 {
-    public $answer;
+    public Answer $answer;
 
-    public function __construct($answer)
+    public function __construct(Answer $answer)
     {
         $this->answer = $answer;
     }

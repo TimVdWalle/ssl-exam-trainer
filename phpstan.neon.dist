@@ -5,20 +5,26 @@ parameters:
 
     paths:
         - app/
-        - config/
-        - database/
-        - routes/
 
     # Level 9 is the highest level
-    level: 8
+    level: 9
 
     ignoreErrors:
         - '#PHPDoc tag @var#'
         - '#PHPDoc tag @mixin#'
 
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
-#
+    excludePaths:
+        - app/Http/Requests/ProfileUpdateRequest.php
+        - app/Http/Requests/Auth/LoginRequest.php
+        - app/Http/Controllers/Auth/ConfirmablePasswordController.php
+        - app/Http/Controllers/Auth/EmailVerificationNotificationController.php
+        - app/Http/Controllers/Auth/EmailVerificationPromptController.php
+        - app/Http/Controllers/Auth/PasswordController.php
+        - app/Http/Controllers/Auth/VerifyEmailController.php
+        - app/Http/Controllers/ProfileController.php
+        - app/Http/Controllers/Auth/NewPasswordController.php
+        - app/Http/Controllers/Auth/RegisteredUserController.php
+
     checkMissingIterableValueType: true
     reportUnmatchedIgnoredErrors: false
 

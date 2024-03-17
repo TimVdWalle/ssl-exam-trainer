@@ -14,8 +14,11 @@ class Question extends Model
 
     protected $fillable = ['number', 'question', 'url'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Answer>
+     */
     public function answers()
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class, 'question_id', 'id');
     }
 }

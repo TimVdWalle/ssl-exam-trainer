@@ -12,18 +12,30 @@ use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
+    /**
+     * @var QuestionSelectionService
+     */
     protected QuestionSelectionService $questionSelectionService;
+    /**
+     * @var CreateNewHashAction
+     */
     protected CreateNewHashAction $createNewHashAction;
 
+    /**
+     * @param QuestionSelectionService $questionSelectionService
+     * @param CreateNewHashAction $createNewHashAction
+     */
     public function __construct(QuestionSelectionService $questionSelectionService, CreateNewHashAction $createNewHashAction)
     {
         Bugsnag::notifyError('test error from server', "testing first error from server to bugsnag");
 
-        $t = (5) / (5 - 2 - 3);
         $this->questionSelectionService = $questionSelectionService;
         $this->createNewHashAction = $createNewHashAction;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function create()
     {
 //        $hash = $this->
@@ -33,12 +45,16 @@ class TestController extends Controller
         return view('test.create', compact('questions'));
     }
 
+    /**
+     * @param TestRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(TestRequest $request)
     {
 //        $data = $request->validated();
 
         $data = $request;
-        dd($data);
+//        dd($data);
 
         // Create a new TestSession instance
         $testSession = new Test([
