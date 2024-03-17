@@ -27,7 +27,10 @@
                         @csrf
 
                         @foreach($questions as $question)
-                            <x-question :question="$question" />
+                            <x-question
+                                :question="$question"
+                                :iteration="$loop->iteration"
+                            />
                         @endforeach
 
                         <div class="flex flex-col sm:flex-row justify-start max-w-xs mx-auto sm:max-w-md lg:mx-0">
@@ -77,6 +80,22 @@
         }
         .selected .answer-icon {
             color: white;;
+        }
+
+        .answer-icon-selected {
+            display: none;
+        }
+
+        .selected .answer-icon-selected {
+            display: block;
+        }
+        .selected .answer-icon {
+            display: none;
+        }
+
+        .question-number {
+            color: #a9a9a9;
+            padding-right: 5px;
         }
     </style>
 

@@ -8,11 +8,13 @@ use Illuminate\View\Component;
 
 class Question extends Component
 {
-    public $question;
+    public \App\Models\Question $question;
+    public int $iteration;
 
-    public function __construct($question)
+    public function __construct(\App\Models\Question $question, int $iteration)
     {
         $this->question = $question;
+        $this->iteration = $iteration;
     }
 
     /**
