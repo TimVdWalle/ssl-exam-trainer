@@ -18,9 +18,6 @@ class SelectQuestionIdsAction
         $questionsPerTest = config('ssl_exam_trainer.questions_per_test');
 
         return Question::query()
-//            ->with(['answers' => function ($query) {
-//                $query->orderBy('option', 'asc');
-//            }])
             ->inRandomOrder()
             ->take(intval($questionsPerTest))
             ->pluck('id');

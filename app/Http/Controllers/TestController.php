@@ -2,14 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CreateNewHashAction;
+use App\Actions\GetQuestionsForHashAction;
 use App\Actions\SelectQuestionIdsAction;
 use App\Http\Requests\TestRequest;
-use App\Models\Question;
-use App\Models\Test;
-use App\Models\UserAnswer;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
 
 class TestController extends Controller
@@ -32,16 +28,13 @@ class TestController extends Controller
      * @param string $hash
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    public function show(string $hash)
+    public function show(string $hash, GetQuestionsForHashAction $getQuestionsForHash)
     {
-        $questionIds = Cache::get('test_questions_hash_' . $hash);
-        if (!$questionIds) {
+        $questions = $getQuestionsForHash($hash);
+
+        if (!$questions->count()) {
             return redirect()->route('practice-exam.create');
         }
-
-        $questions = Question::whereIn('id', $questionIds)
-            ->with('answers')
-            ->get();
 
         return view('test.show', compact('questions', 'hash'));    }
 
