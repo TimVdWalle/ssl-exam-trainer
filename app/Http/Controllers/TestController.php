@@ -1,31 +1,39 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TestSessionRequest;
+use App\Actions\CreateNewHashAction;
+use App\Http\Requests\TestRequest;
 use App\Models\Test;
 use App\Models\UserAnswer;
 use App\Services\QuestionSelectionService;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
-    protected $questionSelectionService;
+    protected QuestionSelectionService $questionSelectionService;
+    protected CreateNewHashAction $createNewHashAction;
 
-    public function __construct(QuestionSelectionService $questionSelectionService)
+    public function __construct(QuestionSelectionService $questionSelectionService, CreateNewHashAction $createNewHashAction)
     {
+//        Bugsnag::notifyError('test first error', "testing first error to bugsnag");
+
+        $t = (5) / (5 - 2 - 3);
         $this->questionSelectionService = $questionSelectionService;
+        $this->createNewHashAction = $createNewHashAction;
     }
 
     public function create()
     {
+//        $hash = $this->
         $questions = $this->questionSelectionService->selectQuestions();
 
         // Return a view with the questions. Adjust the view path and variable names as necessary.
         return view('test.create', compact('questions'));
     }
 
-    public function store(Request $request)
+    public function store(TestRequest $request)
     {
 //        $data = $request->validated();
 
