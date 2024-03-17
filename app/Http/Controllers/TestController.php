@@ -22,9 +22,9 @@ class TestController extends Controller
         $hash = $createNewHashAction();
         $questionIds = $selectQuestionsAction();
 
-        Cache::put('quiz_questions_hash_' . $hash, $questionIds, now()->addHours(1));
+        Cache::put('test_questions_hash_' . $hash, $questionIds, now()->addHours(1));
 
-        return redirect()->route('test.show', ['hash' => $hash]);
+        return redirect()->route('practice-exam.show', ['hash' => $hash]);
     }
 
     public function show(string $hash)
