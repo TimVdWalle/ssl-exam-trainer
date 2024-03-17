@@ -12,11 +12,13 @@ parameters:
     # Level 9 is the highest level
     level: 8
 
-#    ignoreErrors:
-#        - '#PHPDoc tag @var#'
-#
+    ignoreErrors:
+        - '#PHPDoc tag @var#'
+        - '#PHPDoc tag @mixin#'
+
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
 #
     checkMissingIterableValueType: true
     reportUnmatchedIgnoredErrors: false
+
