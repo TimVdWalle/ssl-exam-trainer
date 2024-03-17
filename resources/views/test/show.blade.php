@@ -23,7 +23,7 @@
 
                 <!-- Questions list -->
                 <div class="max-w-3xl mx-auto">
-                    <form action="{{ route('practice-exam.store') }}" method="POST">
+                    <form action="{{ route('practice-exam.store', ['hash' => $hash]) }}" method="POST">
                         @csrf
 
                         @foreach($questions as $question)
