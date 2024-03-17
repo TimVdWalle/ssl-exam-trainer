@@ -2,27 +2,34 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CreateNewHashAction;
-use App\Actions\SelectQuestionsAction;
+use App\Actions\SelectQuestionIdsAction;
 use App\Http\Requests\TestRequest;
 use App\Models\Test;
 use App\Models\UserAnswer;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class TestController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function create(CreateNewHashAction $createNewHashAction, SelectQuestionsAction $selectQuestionsAction)
+    public function create(CreateNewHashAction $createNewHashAction, SelectQuestionIdsAction $selectQuestionsAction)
     {
         $hash = $createNewHashAction();
-        $questions = $selectQuestionsAction();
+        $questionIds = $selectQuestionsAction();
 
-        // Return a view with the questions. Adjust the view path and variable names as necessary.
-        return view('test.create', compact('questions'));
+        Cache::put('quiz_questions_hash_' . $hash, $questionIds, now()->addHours(1));
+
+        return redirect()->route('test.show', ['hash' => $hash]);
+    }
+
+    public function show(string $hash)
+    {
+        dd($hash);
     }
 
     /**
