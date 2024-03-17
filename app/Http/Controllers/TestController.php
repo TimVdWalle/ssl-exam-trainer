@@ -17,7 +17,7 @@ class TestController extends Controller
 
     public function __construct(QuestionSelectionService $questionSelectionService, CreateNewHashAction $createNewHashAction)
     {
-//        Bugsnag::notifyError('test first error', "testing first error to bugsnag");
+        Bugsnag::notifyError('test error from server', "testing first error from server to bugsnag");
 
         $t = (5) / (5 - 2 - 3);
         $this->questionSelectionService = $questionSelectionService;
