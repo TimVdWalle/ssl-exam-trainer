@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
 
+            $table->string('hash');
             $table->integer('score')->nullable();
-            $table->boolean('passed');
+            $table->integer('score_percentage')->nullable();
+            $table->boolean('passed')->nullable();
 
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
 
