@@ -21,4 +21,14 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class, 'question_id', 'id');
     }
+
+    /**
+     * Get the correct answer for the question.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Answer>
+     */
+    public function correctAnswer()
+    {
+        return $this->hasOne(Answer::class)->where('is_correct', true);
+    }
 }

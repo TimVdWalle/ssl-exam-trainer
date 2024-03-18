@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Cache;
 class GetQuestionsForHashAction
 {
     /**
-     * @return \Illuminate\Support\Collection<int, Question>
+     * @return \Illuminate\Database\Eloquent\Collection<int, Question>|null
      * @throws \Exception
      */
-    public function __invoke(string $hash): \Illuminate\Support\Collection
+    public function __invoke(string $hash):?Collection
     {
         $questionIds = Cache::get('test_questions_hash_' . $hash);
 
         if(!$questionIds){
-            return collect();
+            return null;
         }
 
         $questions = Question::whereIn('id', $questionIds)

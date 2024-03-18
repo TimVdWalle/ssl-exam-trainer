@@ -1,10 +1,15 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Actions\CreateNewHashAction;
+use App\Actions\EvaluateTestAction;
 use App\Actions\GetQuestionsForHashAction;
+use App\Actions\SaveTestAction;
 use App\Actions\SelectQuestionIdsAction;
+use App\DTOs\SubmittedTestDTO;
 use App\Http\Requests\TestRequest;
+use App\Models\Test;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
 
@@ -32,44 +37,50 @@ class TestController extends Controller
     {
         $questions = $getQuestionsForHash($hash);
 
-        if (!$questions->count()) {
+        if (!$questions || !$questions->count()) {
             return redirect()->route('practice-exam.create');
         }
 
-        return view('test.show', compact('questions', 'hash'));    }
+        return view('test.show', compact('hash', 'questions'));
+    }
 
     /**
      * @param TestRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param string $hash
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse
      */
-    public function store(TestRequest $request)
+    public function store(
+        TestRequest               $request,
+        string                    $hash,
+        GetQuestionsForHashAction $getQuestionsForHashAction,
+        SaveTestAction            $saveTestAction,
+    )
     {
-//        $data = $request->validated();
+        $submittedTestDTO = SubmittedTestDTO::fromRequest($request);
+        $questions = $getQuestionsForHashAction($hash);
 
-        $data = $request;
-//        dd($data);
+        if (!$questions || !$questions->count()) {
+            return redirect()->route('practice-exam.create');
+        }
 
-        // Create a new TestSession instance
-//        $testSession = new Test([
-//            'user_id' => Auth::id(),
-//            'passed' => true
-//        ]);
-//        $testSession->save();
-//
-//        // Assuming $data['answers'] contains ['question_id' => x, 'answer_id' => y] pairs
-//        foreach ($data['answers'] as $answerData) {
-//            $userAnswer = new UserAnswer([
-//                'session_id' => $testSession->id,
-//                'question_id' => $answerData['question_id'],
-//                'answer_id' => $answerData['answer_id'],
-//                'is_correct' => false,          // TODO
-//            ]);
-//            $userAnswer->save();
-//        }
+        $saveTestAction($hash, $submittedTestDTO, $questions);
 
-        // Redirect to a results page or somewhere appropriate
-        return redirect()->route('test_sessions.show');
+        return redirect()->route('practice-exam.result', ['hash' => $hash]);
     }
 
-    // Additional methods like show() for displaying results, etc.
+    /**
+     * @param string $hash
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function result(string $hash)
+    {
+        $test = Test::query()
+            ->where('hash', '=', $hash)
+            ->firstOrFail();
+
+        return view('test.result', compact(
+            'hash',
+            'test',
+        ));
+    }
 }

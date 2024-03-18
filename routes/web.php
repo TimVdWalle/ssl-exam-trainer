@@ -10,6 +10,7 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/practice-exam', [TestController::class, 'create'])->name('practice-exam.create');
 Route::get('/practice-exam/{hash}', [TestController::class, 'show'])->name('practice-exam.show');
 Route::post('/practice-exam/{hash}', [TestController::class, 'store'])->name('practice-exam.store');
+Route::get('/practice-exam/{hash}/result', [TestController::class, 'result'])->name('practice-exam.result');
 
 
 Route::get('/dashboard', function () {

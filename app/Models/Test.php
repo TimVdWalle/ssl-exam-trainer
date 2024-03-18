@@ -13,9 +13,11 @@ class Test extends Model
     use HasFactory;
 
      protected $fillable = [
-        'user_id', // Assuming you track which user the session belongs to
+        'hash', // Assuming you track which user the session belongs to
         'score',   // Assuming you store a score or outcome of the session
+        'score_percentage',   // Assuming you store a score or outcome of the session
         'passed',  // Whether or not the user passed the session
+        'user_id', // Assuming you track which user the session belongs to
         // Any other fields relevant to the session
     ];
 
