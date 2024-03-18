@@ -52,6 +52,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Answer> $answers
  * @property-read int|null $answers_count
+ * @property-read \App\Models\Answer|null $correctAnswer
  * @method static \Database\Factories\QuestionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Question newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Question newQuery()
@@ -73,8 +74,10 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $hash
  * @property int|null $score
- * @property int $passed
+ * @property int|null $score_percentage
+ * @property int|null $passed
  * @property int|null $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -85,9 +88,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Test newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Test query()
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test wherePassed($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereScorePercentage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereUserId($value)
  * @mixin \Eloquent
@@ -139,6 +144,9 @@ namespace App\Models{
  * @property int|null $answer_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Answer|null $answer
+ * @property-read \App\Models\Question $question
+ * @property-read \App\Models\Test $test
  * @method static \Database\Factories\UserAnswerFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|UserAnswer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserAnswer newQuery()
