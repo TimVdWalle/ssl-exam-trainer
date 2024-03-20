@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CheckIfTestExistsForHash;
 use App\Actions\CreateNewHashAction;
 use App\Actions\EvaluateTestAction;
 use App\Actions\GetQuestionsForHashAction;
@@ -33,8 +34,15 @@ class TestController extends Controller
      * @param string $hash
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    public function show(string $hash, GetQuestionsForHashAction $getQuestionsForHash)
+    public function show(string $hash, GetQuestionsForHashAction $getQuestionsForHash, CheckIfTestExistsForHash $checkIfTestExistsForHash)
     {
+        $alreadySubmitted = $checkIfTestExistsForHash($hash);
+
+        // If a test with a score or passed status exists, redirect to the results page
+        if ($alreadySubmitted) {
+            return redirect()->route('practice-exam.result', ['hash' => $hash]);
+        }
+
         $questions = $getQuestionsForHash($hash);
 
         if (!$questions || !$questions->count()) {
