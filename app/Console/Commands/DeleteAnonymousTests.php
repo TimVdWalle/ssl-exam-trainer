@@ -28,7 +28,7 @@ class DeleteAnonymousTests extends Command
     public function handle(): int
     {
         $this->info('delete-anonymous-tests');
-        $days = 2;
+        $days = 1;
 
         $cutoffDate = Carbon::now()->subDays($days);
 
