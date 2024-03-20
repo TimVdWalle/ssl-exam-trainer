@@ -5,37 +5,36 @@
         </h2>
     </x-slot>
 
-
-
-    <!-- Career -->
+    <!-- Intro -->
     <section>
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="py-12 md:py-20 border-t border-gray-200">
+            <div class="pt-32 pb-12 md:pt-40 md:pb-20">
 
                 <!-- Section header -->
                 <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-                    <h2 class="h2 mb-4">Proefexamen resultaat</h2>
-
-                    <div class="text-xl text-gray-600 text-left">Resultaat: {{ $test->passed ? 'geslaagd' : 'niet geslaagd' }}</div>
-                    <div class="text-xl text-gray-600 text-left">Score: {{ $test->score_percentage }}</div>
-
+                    <h1 class="h1 mb-4">Proefexamen resultaat</h1>
+                    <p class="text-xl text-gray-600">
+                        <div class="text-xl text-gray-600 text-left">Resultaat: {{ $test->passed ? 'geslaagd' : 'niet geslaagd' }}</div>
+                        <div class="text-xl text-gray-600 text-left">Score: {{ $test->score_percentage }}</div>                    </p>
                 </div>
-
-                <!-- Questions list -->
-                <div class="max-w-3xl mx-auto">
-                        @foreach($test->userAnswers as $userAnswer)
-                            <x-user-answer
-                                :userAnswer="$userAnswer"
-                                :iteration="$loop->iteration"
-                            />
-                        @endforeach
-
-                </div>
-
             </div>
         </div>
     </section>
 
+    <section>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="pb-12 md:pb-20">
+                <div class="max-w-3xl mx-auto">
+                    @foreach($test->userAnswers as $userAnswer)
+                        <x-user-answer
+                            :userAnswer="$userAnswer"
+                            :iteration="$loop->iteration"
+                        />
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
