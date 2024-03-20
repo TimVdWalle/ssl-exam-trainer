@@ -5,23 +5,27 @@
         </h2>
     </x-slot>
 
-
-
-    <!-- Career -->
+    <!-- Intro -->
     <section>
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="py-12 md:py-20 border-t border-gray-200">
+            <div class="pt-32 pb-12 md:pt-40 md:pb-20">
 
                 <!-- Section header -->
                 <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-                    <h2 class="h2 mb-4">Proefexamen</h2>
-                    <p class="text-xl text-gray-600 text-left">
+                    <h1 class="h1 mb-4">Proefexamen</h1>
+                    <p class="text-xl text-gray-600">
                         Dit is een proefexamen. {{config('ssl_exam_trainer.questions_per_test')}} vragen werden geselecteerd uit een totaal van {{\App\Models\Question::count() }} vragen zoals die ook op het echte examen kunnen gevraagd worden.
                         Je moet {{intval(config('ssl_exam_trainer.min_correct_to_pass') / config('ssl_exam_trainer.questions_per_test') * 100) }}% van de vragen juist hebben om geslaagd te zijn. Vragen overlaten wordt niet bestraft.
                     </p>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Questions list -->
+    <section>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="pb-12 md:pb-20">
+
                 <div class="max-w-3xl mx-auto">
                     <form action="{{ route('practice-exam.store', ['hash' => $hash]) }}" method="POST">
                         @csrf
@@ -43,8 +47,7 @@
             </div>
         </div>
     </section>
-
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const answers = document.querySelectorAll('.answer-label input[type="radio"]');
