@@ -10,4 +10,4 @@ use Illuminate\Support\Facades\Schedule;
 //})->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command(DeleteAnonymousTests::class)->everyMinute();
+Schedule::command(DeleteAnonymousTests::class)->daily();
