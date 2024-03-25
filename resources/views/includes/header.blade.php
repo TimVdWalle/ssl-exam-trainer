@@ -36,7 +36,7 @@
             <nav class="hidden md:flex md:grow">
 
                 <!-- Desktop menu links -->
-                <ul class="flex grow justify-end flex-wrap items-center">
+                <ul class="flex grow justify-start flex-wrap items-center">
                     <li>
                         <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('home') }}">Home</a>
                     </li>

@@ -30,10 +30,22 @@
             <!-- Hero content -->
             <div class="pt-32 pb-12 md:pt-40 md:pb-20">
 
+
+
                 <!-- Section header -->
                 <div class="text-center pb-12 md:pb-16">
                     <h1 class="text-4xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Oefenen voor je <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"> sportschutterslicentie</span> theoretisch examen</h1>
                     <div class="max-w-3xl mx-auto">
+                        <!-- Check if showLoggedIn parameter is true and display message -->
+                        @if(request()->get('showLoggedIn') === '1')
+                            <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 mt-2 mb-5">
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Je bent ingelogd!</strong>
+                                    {{--                            <span class="block sm:inline">Je bent ingelogd.</span>--}}
+                                </div>
+                            </div>
+                        @endif
+                        
                         <p class="md:text-center text-xl text-gray-600 mb-8" data-aos="zoom-y-out" data-aos-delay="150">
                             Via deze site kan je gemakkelijk en gratis oefenen
                             <br class="hidden md:block" />voor je sportschutterslicentie theorie-examen.

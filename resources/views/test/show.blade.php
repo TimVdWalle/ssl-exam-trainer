@@ -47,7 +47,7 @@
             </div>
         </div>
     </section>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const answers = document.querySelectorAll('.answer-label input[type="radio"]');
