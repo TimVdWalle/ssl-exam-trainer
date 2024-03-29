@@ -14,6 +14,7 @@ class UserAnswer extends Model
 
     protected $fillable = [
         'test_id',
+        'user_id',
         'question_id',
         'answer_id',
         'is_correct',
