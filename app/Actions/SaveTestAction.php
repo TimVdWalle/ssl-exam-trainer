@@ -21,13 +21,15 @@ class SaveTestAction
      */
     public function __invoke(string $hash, SubmittedTestDTO $submittedTestDTO, Collection $questions): Test
     {
+        $userId = Auth::check() ? Auth::id() : null;
+
         $correctCount = 0;
         $test = Test::create([
             'hash' => $hash,
 //            'score' => 0,
 //            'score_percentage' => 0,
 //            'passed' => false,
-            'user_id' => Auth::check() ? Auth::id() : null,
+            'user_id' => $userId,
         ]);
 
         foreach ($questions as $question) {
@@ -42,6 +44,7 @@ class SaveTestAction
 
             UserAnswer::create([
                 'test_id' => $test->id,
+                'user_id' => $userId,
                 'question_id' => $question->id,
                 'answer_id' => $selectedAnswerId,
                 'is_correct' => $isCorrect,
