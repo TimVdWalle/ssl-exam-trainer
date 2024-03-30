@@ -9,7 +9,9 @@
         "bugsnag/bugsnag-laravel": "^2.27",
         "laravel/breeze": "^2.0",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/socialite": "^5.12",
+        "laravel/tinker": "^2.9",
+        "socialiteproviders/google": "^4.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.12",
