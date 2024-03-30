@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -45,6 +46,9 @@ Route::middleware('guest')->group(function () {
         Log::info('testing google callback');
         $user = Socialite::driver('google')->user();
 
+
+        BugSnag::notifyError('test google callback', '');
+        BugSnag::notifyError('test google callback', json_encode($user));
         Log::info(json_encode($user));
 
         // $user->token
