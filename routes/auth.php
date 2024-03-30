@@ -42,6 +42,7 @@ Route::middleware('guest')->group(function () {
     });
 
     Route::get('/auth/callback/google', function () {
+        Log::info('testing google callback');
         $user = Socialite::driver('google')->user();
 
         Log::info(json_encode($user));
