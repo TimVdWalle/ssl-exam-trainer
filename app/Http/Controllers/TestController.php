@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Actions\CheckIfTestExistsForHash;
 use App\Actions\CreateNewHashAction;
-use App\Actions\EvaluateTestAction;
 use App\Actions\GetQuestionsForHashAction;
 use App\Actions\SaveTestAction;
 use App\Actions\SelectQuestionIdsAction;
