@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Support\Facades\Log;
@@ -38,21 +39,23 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 
 
-    Route::post('/auth/redirect/google', function () {
+    Route::post('/auth/redirect/{provider}', function () {
         return Socialite::driver('google')->redirect();
     });
 
-    Route::get('/auth/callback/google', function () {
-        Log::info('testing google callback');
-        $user = Socialite::driver('google')->user();
+    Route::get('/auth/callback/{provider}', [SocialiteController::class, 'store']);
 
-
-        BugSnag::notifyError('test google callback', '');
-        BugSnag::notifyError('test google callback', json_encode($user));
-        Log::info(json_encode($user));
-
-        // $user->token
-    });
+//    Route::get('/auth/callback/google', function () {
+//        Log::info('testing google callback');
+//        $user = Socialite::driver('google')->user();
+//
+//
+//        BugSnag::notifyError('test google callback', '');
+//        BugSnag::notifyError('test google callback', json_encode($user));
+//        Log::info(json_encode($user));
+//
+//        // $user->token
+//    });
 });
 
 Route::middleware('auth')->group(function () {
