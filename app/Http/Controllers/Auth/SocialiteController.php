@@ -18,49 +18,58 @@ class SocialiteController extends Controller
     /**
      * @param Request $request
      * @param string $provider
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|RedirectResponse
      */
     public function store(Request $request, string $provider)
     {
-        Log::info('testing SocialiteController google callback');
+        Log::info('SocialiteController google callback');
 
-        if ($provider === 'google') {
-            $this->storeGoogle($request);
+        if ($provider !== 'google') {
+            return redirect(route('register'));
         }
+
+        $result = $this->storeGoogle($request);
+        if (!$result) {
+            return redirect(route('register'));
+        }
+
+        return redirect(route('home', ['showLoggedIn' => true]));
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|RedirectResponse
+     * @return boolean
      */
     public function storeGoogle(Request $request)
     {
         $externalUser = Socialite::driver('google')->user();
-//        Log::info(json_encode($externalUser));
 
         $name = $externalUser->getName();
         $email = $externalUser->getEmail();
         $id = $externalUser->getId();
 
-        if(!$email){
-            abort(404);
+        if (!$email) {
+            return false;
         }
 
         $user = User::query()
             ->where('email', '=', $email)
             ->first();
 
-        if(!$user){
+        if (!$user) {
             // user does not exist yet => create the user
             $user = new User();
             $user->name = $name ?? '';
             $user->email = $email;
             $user->socialite_token = $id;
             $user->save();
+        } else {
+            $user->socialite_token = $id;
+            $user->save();
         }
 
         Auth::login($user);
-        return redirect(route('home', ['showLoggedIn' => true]));
+        return true;
     }
 }
 
