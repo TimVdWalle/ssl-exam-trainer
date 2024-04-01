@@ -97,7 +97,7 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">
+                                <button type="submit" class="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
                                     Uitloggen
                                 </button>
                             </form>
