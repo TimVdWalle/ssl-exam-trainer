@@ -30,6 +30,7 @@ class SaveTestAction
 //            'score_percentage' => 0,
 //            'passed' => false,
             'user_id' => $userId,
+            'number_of_questions' => $questions->count()
         ]);
 
         foreach ($questions as $question) {

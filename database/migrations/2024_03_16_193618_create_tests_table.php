@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('hash');
             $table->integer('score')->nullable();
             $table->integer('score_percentage')->nullable();
+            $table->integer('number_of_questions')->nullable();
             $table->boolean('passed')->nullable();
 
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
