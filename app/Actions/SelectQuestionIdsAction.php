@@ -3,10 +3,7 @@
 namespace App\Actions;
 
 use App\Models\Question;
-use App\Models\Test;
-use App\Models\User;
 use App\Models\UserAnswer;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -36,8 +33,7 @@ class SelectQuestionIdsAction
                 ->havingRaw('SUM(CASE WHEN is_correct = 0 THEN 1 ELSE 0 END) > SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END)')
                 ->orderBy(DB::raw('RAND()'))
                 ->limit($maxWrongQuestions)
-                ->pluck('question_id')
-//                ->dd()
+                ->pluck('question_id')//                ->dd()
             ;
 
             // next, select some questions that were never answered before and for that we need previously answered question ids
@@ -58,7 +54,7 @@ class SelectQuestionIdsAction
             // finally, if not enough questions yet, select again from the whole pool
             // allowing for previously answered questions (both correct or wrong) to be selected
             $setSize = $wrongAnsweredQuestionIds->count() + $neverAnsweredQuestionIds->count();
-            if($setSize < $questionsPerTest){
+            if ($setSize < $questionsPerTest) {
                 $additionalQuestionIDs = Question::query()
                     ->whereNotIn('id', $wrongAnsweredQuestionIds)
                     ->whereNotIn('id', $neverAnsweredQuestionIds)
