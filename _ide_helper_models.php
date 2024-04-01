@@ -77,6 +77,7 @@ namespace App\Models{
  * @property string $hash
  * @property int|null $score
  * @property int|null $score_percentage
+ * @property int|null $number_of_questions
  * @property int|null $passed
  * @property int|null $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -90,6 +91,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereNumberOfQuestions($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test wherePassed($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereScore($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereScorePercentage($value)
@@ -109,8 +111,9 @@ namespace App\Models{
  * @property string $name
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property mixed $password
+ * @property mixed|null $password
  * @property string|null $remember_token
+ * @property string|null $socialite_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -126,6 +129,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSocialiteToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -140,6 +144,7 @@ namespace App\Models{
  * @property int $id
  * @property int $is_correct
  * @property int $test_id
+ * @property int|null $user_id
  * @property int $question_id
  * @property int|null $answer_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -158,6 +163,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|UserAnswer whereQuestionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserAnswer whereTestId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserAnswer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserAnswer whereUserId($value)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
