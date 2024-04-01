@@ -16,6 +16,7 @@ class Test extends Model
         'hash', // Assuming you track which user the session belongs to
         'score',   // Assuming you store a score or outcome of the session
         'score_percentage',   // Assuming you store a score or outcome of the session
+        'number_of_questions',
         'passed',  // Whether or not the user passed the session
         'user_id', // Assuming you track which user the session belongs to
         // Any other fields relevant to the session
