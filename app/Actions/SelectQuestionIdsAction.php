@@ -50,7 +50,7 @@ class SelectQuestionIdsAction
                 ->whereNotIn('id', $previouslyAnsweredQuestionIds)
                 ->distinct()
                 ->orderBy(DB::raw('RAND()'))
-                ->limit($questionsPerTest - $maxWrongQuestions)
+                ->limit($questionsPerTest - $wrongAnsweredQuestionIds->count())
                 ->pluck('id');
 
             $result = $wrongAnsweredQuestionIds->concat($neverAnsweredQuestionIds->toArray());
@@ -64,7 +64,7 @@ class SelectQuestionIdsAction
                     ->whereNotIn('id', $neverAnsweredQuestionIds)
                     ->distinct()
                     ->orderBy(DB::raw('RAND()'))
-                    ->limit($questionsPerTest - $maxWrongQuestions)
+                    ->limit($setSize)
                     ->pluck('id');
 
                 $result = $result->concat($additionalQuestionIDs->toArray());
