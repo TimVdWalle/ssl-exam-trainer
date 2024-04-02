@@ -14,7 +14,9 @@
                 <!-- Section header -->
                 <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
                     <h1 class="h1 mb-4" data-aos="zoom-y-out">Dashboard</h1>
-{{--                    <p class="text-xl text-gray-600" data-aos="zoom-y-out" data-aos-delay="150">Select a category to email the support team or contact us directly by using the form below.</p>--}}
+                    <p class="text-xl text-gray-600" data-aos="zoom-y-out" data-aos-delay="150">
+                        Resultaten voor {{auth()->user()->name}}
+                    </p>
                 </div>
 
                 <!-- Items -->
