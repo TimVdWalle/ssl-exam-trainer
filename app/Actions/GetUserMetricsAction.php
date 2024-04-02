@@ -70,6 +70,8 @@ class GetUserMetricsAction
         $firstTestDate = Test::where('user_id', $userId)->oldest('created_at')->first()->created_at ?? null;
         $lastTestDate = Test::where('user_id', $userId)->latest('created_at')->first()->created_at ?? now();
 
+
+
         // Determine the total span of activity
         $activitySpan = $firstTestDate ? $lastTestDate->diffInDays($firstTestDate) : 0;
 
@@ -88,6 +90,10 @@ class GetUserMetricsAction
         } else {
             // Concentrated Activity or Short History: Show the entire span
             $optimalStart = $firstTestDate;
+        }
+
+        if(!$optimalStart){
+            return collect();
         }
 
         // Fetch and prepare tests within the optimal period for the chart
