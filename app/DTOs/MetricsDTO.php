@@ -20,9 +20,9 @@ class MetricsDTO
      */
     public int $averageScore;
     /**
-     * @var array<string, int|string>
+     * @var Collection<string, int|string>
      */
-    public array $scoresOverTime;
+    public Collection $scoresOverTime;
     /**
      * @var int
      */
@@ -47,14 +47,14 @@ class MetricsDTO
     /**
      * @param int $passRate
      * @param int $averageScore
-     * @param array<string, int|string> $scoresOverTime
+     * @param Collection<string, int|string> $scoresOverTime
      * @param int $totalQuestions
      * @param int $totalAnswers
      * @param int $totalTests
      * @param int $totalTestsPassed
      * @param int $correctlyAnsweredQuestions
      */
-    public function __construct(int $passRate, int $averageScore, array $scoresOverTime, int $totalQuestions, int $totalAnswers, int $totalTests, int $totalTestsPassed, int $correctlyAnsweredQuestions)
+    public function __construct(int $passRate, int $averageScore, Collection $scoresOverTime, int $totalQuestions, int $totalAnswers, int $totalTests, int $totalTestsPassed, int $correctlyAnsweredQuestions)
     {
         $this->passRate = $passRate;
         $this->averageScore = $averageScore;
