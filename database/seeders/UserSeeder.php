@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             User::factory()->create([
                 'name' => 'Tim Vande Walle',
                 'email' => 'tim@vandewalle.mobi',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('p'),
             ]);
         }
     }
