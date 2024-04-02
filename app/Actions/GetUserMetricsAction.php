@@ -6,6 +6,7 @@ use App\DTOs\MetricsDTO;
 use App\Models\Question;
 use App\Models\Test;
 use App\Models\UserAnswer;
+use Illuminate\Support\Facades\DB;
 
 class GetUserMetricsAction
 {
@@ -36,6 +37,15 @@ class GetUserMetricsAction
 
         $totalQuestions = Question::query()->count();
 
+        $correctlyAnsweredQuestions = UserAnswer::query()
+            ->select('question_id', DB::raw('MAX(created_at) as latest'))
+            ->where('user_id', $userId)
+            ->where('is_correct', true)
+            ->groupBy('question_id')
+            ->havingRaw('MAX(is_correct) = true')
+            ->count();
+
+
         $totalAnswers = UserAnswer::query()
             ->whereIn('test_id', $userTests->pluck('id'))
             ->distinct('question_id')
@@ -49,6 +59,7 @@ class GetUserMetricsAction
             $totalAnswers,
             $userTests->count(),
             $totalTestsPassed,
+            $correctlyAnsweredQuestions,
         );
     }
 

@@ -39,6 +39,10 @@ class MetricsDTO
      * @var int
      */
     public int $totalTestsPassed;
+    /**
+     * @var int
+     */
+    public int $correctlyAnsweredQuestions;
 
     /**
      * @param int $passRate
@@ -48,8 +52,9 @@ class MetricsDTO
      * @param int $totalAnswers
      * @param int $totalTests
      * @param int $totalTestsPassed
+     * @param int $correctlyAnsweredQuestions
      */
-    public function __construct(int $passRate, int $averageScore, array $scoresOverTime, int $totalQuestions, int $totalAnswers, int $totalTests, int $totalTestsPassed)
+    public function __construct(int $passRate, int $averageScore, array $scoresOverTime, int $totalQuestions, int $totalAnswers, int $totalTests, int $totalTestsPassed, int $correctlyAnsweredQuestions)
     {
         $this->passRate = $passRate;
         $this->averageScore = $averageScore;
@@ -58,6 +63,7 @@ class MetricsDTO
         $this->totalAnswers = $totalAnswers;
         $this->totalTests = $totalTests;
         $this->totalTestsPassed = $totalTestsPassed;
+        $this->correctlyAnsweredQuestions = $correctlyAnsweredQuestions;
     }
 
 //    /**
