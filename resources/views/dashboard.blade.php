@@ -20,23 +20,33 @@
                 <!-- Items -->
                 <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none" data-aos-id-blocks>
                     <x-dashboard-item
-                        title="Aantal tests"
-                        text="{{ $metrics->totalTests }}"
+                        title="{{ $metrics->totalTests }}"
+                        text="Aantal tests"
                     />
 
                     <x-dashboard-item
-                        title="Aantal geslaagde tests"
-                        text="{{ $metrics->totalTestsPassed . ' (' . $metrics->passRate .'%)' }}"
+                        title="{{ $metrics->totalTestsPassed }}"
+                        text="Geslaagde tests"
                     />
 
                     <x-dashboard-item
-                        title="Aantal vragen beantwoord"
-                        text="{{ $metrics->totalAnswers }}"
+                        title="{{ $metrics->passRate }}%"
+                        text="Geslaagde tests"
                     />
 
                     <x-dashboard-item
-                        title="Gemiddelde score"
-                        text="{{ $metrics->averageScore }}%"
+                        title="{{ $metrics->totalAnswers }}"
+                        text="Vragen beantwoord"
+                    />
+
+                    <x-dashboard-item
+                        title="{{ $metrics->averageScore }}%"
+                        text="Gemiddelde score"
+                    />
+
+                    <x-dashboard-item
+                        title="{{ $metrics->correctlyAnsweredQuestions }} /  {{ $metrics->totalQuestions }}"
+                        text="Globale vooruitgang"
                     />
 
                 </div>
