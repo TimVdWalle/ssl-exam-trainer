@@ -19,6 +19,37 @@
                     </p>
                 </div>
 
+
+{{--                <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-1 lg:grid-cols-2 items-start md:max-w-2xl lg:max-w-none mb-20" data-aos-id-blocks>--}}
+{{--                    <div>--}}
+{{--                        <canvas id="myChart"></canvas>--}}
+{{--                    </div>--}}
+
+{{--                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+
+{{--                    <script>--}}
+{{--                        const ctx = document.getElementById('myChart');--}}
+
+{{--                        new Chart(ctx, {--}}
+{{--                            type: 'bar',--}}
+{{--                            data: {--}}
+{{--                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],--}}
+{{--                                datasets: [{--}}
+{{--                                    label: '# of Votes',--}}
+{{--                                    data: [12, 19, 3, 5, 2, 3],--}}
+{{--                                    borderWidth: 1--}}
+{{--                                }]--}}
+{{--                            },--}}
+{{--                            options: {--}}
+{{--                                scales: {--}}
+{{--                                    y: {--}}
+{{--                                        beginAtZero: true--}}
+{{--                                    }--}}
+{{--                                }--}}
+{{--                            }--}}
+{{--                        });--}}
+{{--                    </script>--}}
+{{--                </div>--}}
                 <!-- Items -->
                 <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none" data-aos-id-blocks>
                     <x-dashboard-item
@@ -50,6 +81,8 @@
                         title="{{ $metrics->passRate }}%"
                         text="Geslaagde tests"
                     />
+
+
                 </div>
 
             </div>

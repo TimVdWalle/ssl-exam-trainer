@@ -32,6 +32,8 @@ class DashboardController extends Controller
         $userId = Auth::id();
         $metrics = $getUserMetricsAction($userId);
 
+//        dd($metrics);
+
         return view('dashboard', compact('metrics'));
     }
 }
