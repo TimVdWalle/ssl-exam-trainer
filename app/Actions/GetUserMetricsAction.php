@@ -5,8 +5,12 @@ namespace App\Actions;
 use App\DTOs\MetricsDTO;
 use App\Models\Question;
 use App\Models\Test;
+use App\Models\User;
 use App\Models\UserAnswer;
+use DateInterval;
+use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class GetUserMetricsAction
@@ -31,7 +35,10 @@ class GetUserMetricsAction
         }
         $averageScore = $totalPossibleScore > 0 ? intval(floor(($totalScore / $totalPossibleScore) * 100)) : 0;
 
-        $scoresOverTime = $this->getScoresOverTime($userId, $userTests);
+        $intervalData = $this->getInterval($userTests);
+//        dd($interval);
+//        $interval = 'day';
+        $progressOverTime = $this->getProgressOverTime($userTests, $userId, $intervalData);
 
         $totalQuestions = Question::query()->count();
 
@@ -43,19 +50,15 @@ class GetUserMetricsAction
             ->havingRaw('MAX(is_correct) = true')
             ->count();
 
-
         $totalAnswers = UserAnswer::query()
             ->whereIn('test_id', $userTests->pluck('id'))
             ->distinct('question_id')
             ->count('question_id');
 
-        $interval = $this->getInterval($userTests);
-//        dd($interval);
-
         return new MetricsDTO(
             $passRate,
             $averageScore,
-            $scoresOverTime,
+            $progressOverTime,
             $totalQuestions,
             $totalAnswers,
             $userTests->count(),
@@ -64,58 +67,114 @@ class GetUserMetricsAction
         );
     }
 
-    private function getScoresOverTime(int $userId, $userTests)
+    /**
+     * @param int $userId
+     * @param $userTests
+     * @param string $interval
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
+     * @throws Exception
+     */
+    private function getProgressOverTime($userTests, int $userId, array $intervalData)
     {
-        // Get the user's first and last test dates
-        $firstTestDate = Test::where('user_id', $userId)->oldest('created_at')->first()->created_at ?? null;
-        $lastTestDate = Test::where('user_id', $userId)->latest('created_at')->first()->created_at ?? now();
+        $results = collect();
+        $interval = $intervalData['interval'];
+        $startDate = $intervalData['startDate'];
+        $endDate = $intervalData['endDate'];
 
-
-
-        // Determine the total span of activity
-        $activitySpan = $firstTestDate ? $lastTestDate->diffInDays($firstTestDate) : 0;
-
-        // Analyze the density of activity (tests per week)
-        $totalTests = $userTests->count();
-        $weeksActive = max($activitySpan / 7, 1);
-        $testsPerWeek = $totalTests / $weeksActive;
-
-        // Determine the optimal period based on activity type
-        if ($testsPerWeek >= 3) {
-            // Frequent Tester: Show the last year
-            $optimalStart = now()->subYear();
-        } elseif ($activitySpan > 365) {
-            // Sporadic Tester with long history: Focus on the last 6 months to a year
-            $optimalStart = now()->subMonths(6);
-        } else {
-            // Concentrated Activity or Short History: Show the entire span
-            $optimalStart = $firstTestDate;
+        switch ($interval) {
+            case 'day':
+                $dateInterval = new DateInterval('P1D'); // 1 day
+                break;
+            case 'week':
+                $dateInterval = new DateInterval('P1W'); // 1 week
+                break;
+            case 'month':
+                $dateInterval = new DateInterval('P1M'); // 1 month
+                break;
+            default:
+                throw new Exception('Invalid interval specified.');
         }
 
-        if(!$optimalStart){
-            return collect();
-        }
-
-        // Fetch and prepare tests within the optimal period for the chart
-        $scoresOverTime = Test::query()->where('user_id', $userId)
-            ->where('created_at', '>=', $optimalStart)
+        $answers = UserAnswer::query()
+            ->where('user_id', '=', $userId)
+            ->where('created_at', '>=', $startDate)
+            ->where('created_at', '<=', $endDate)
+            ->where('is_correct', '=', true)
             ->orderBy('created_at')
-            ->get(['score', 'created_at'])
-            ->map(function ($test) {
-                return ['score' => $test->score, 'date' => $test->created_at->toDateString()];
-            });
+            ->get();
 
-        return $scoresOverTime;
+        $results = collect();
+        $loopDate = $startDate;
+        while($loopDate <= $endDate){
+            // Increment date by the interval
+            $loopDate->add($dateInterval);
+//            echo $loopDate->format('Y-m-d') . "\n : "; // Format as desired
+
+            $progressCount = $answers->where('created_at', '<=', $loopDate)->pluck('question_id')->unique()->count();
+//            echo($progressCount);
+//            echo('<br />');
+
+            $results->push([
+                'the_date' => $loopDate,
+                'progress' => $progressCount,
+            ]);
+
+
+        }  ;
+
+
+//        dd($results);
+
+//        // Get the user's first and last test dates
+//        /** @var ?Carbon $firstTestDate */
+//        $firstTestDate = Test::where('user_id', $userId)->oldest('created_at')->first()->created_at ?? null;
+//        /** @var ?Carbon $lastTestDate */
+//        $lastTestDate = Test::where('user_id', $userId)->latest('created_at')->first()->created_at ?? now();
+//
+//        // Determine the total span of activity
+//        $activitySpan = $firstTestDate ? $lastTestDate->diffInDays($firstTestDate) : 0;
+//
+//        // Analyze the density of activity (tests per week)
+//        $totalTests = $userTests->count();
+//        $weeksActive = max($activitySpan / 7, 1);
+//        $testsPerWeek = $totalTests / $weeksActive;
+//
+//
+//
+//        // Determine the optimal period based on activity type
+//        if ($testsPerWeek >= 3) {
+//            // Frequent Tester: Show the last year
+//            $optimalStart = now()->subYear();
+//        } elseif ($activitySpan > 365) {
+//            // Sporadic Tester with long history: Focus on the last 6 months to a year
+//            $optimalStart = now()->subMonths(6);
+//        } else {
+//            // Concentrated Activity or Short History: Show the entire span
+//            $optimalStart = $firstTestDate;
+//        }
+//
+//        if (!$optimalStart) {
+//            return collect();
+//        }
+
+
+        return $results;
     }
 
-    public function getInterval($userTests): string
+
+    public function getInterval(Collection $userTests)
     {
+        /** @var ?Carbon $firstTestDate */
         $firstTestDate = $userTests->min('created_at');
+        /** @var ?Carbon $lastTestDate */
         $lastTestDate = $userTests->max('created_at');
 
         if (!$firstTestDate || !$lastTestDate) {
-            // Default to monthly if there are no tests
-            return 'monthly';
+            return [
+                'interval' => 'month',
+                'startDate' => now()->subMonths(6),
+                'endDate' => now()
+            ];
         }
 
         $startDate = Carbon::parse($firstTestDate);
@@ -132,12 +191,18 @@ class GetUserMetricsAction
 
         // Decide the interval
         if ($totalMonths > 12 || $testsPerWeek < 1) {
-            return 'monthly';
+            $interval = 'month';
         } elseif ($testsPerDay < 1) {
-            return 'weekly';
+            $interval = 'week';
         } else {
-            return 'daily';
+            $interval = 'day';
         }
-    }
 
+        return [
+            'interval' => $interval,
+//            'interval' => 'day',
+            'startDate' => $startDate,
+            'endDate' => $endDate
+        ];
+    }
 }

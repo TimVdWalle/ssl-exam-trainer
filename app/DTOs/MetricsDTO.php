@@ -22,7 +22,7 @@ class MetricsDTO
     /**
      * @var Collection<string, int|string>
      */
-    public Collection $scoresOverTime;
+    public Collection $progressOverTime;
     /**
      * @var int
      */
@@ -47,18 +47,18 @@ class MetricsDTO
     /**
      * @param int $passRate
      * @param int $averageScore
-     * @param Collection<string, int|string> $scoresOverTime
+     * @param Collection<string, int|string> $progressOverTime
      * @param int $totalQuestions
      * @param int $totalAnswers
      * @param int $totalTests
      * @param int $totalTestsPassed
      * @param int $correctlyAnsweredQuestions
      */
-    public function __construct(int $passRate, int $averageScore, Collection $scoresOverTime, int $totalQuestions, int $totalAnswers, int $totalTests, int $totalTestsPassed, int $correctlyAnsweredQuestions)
+    public function __construct(int $passRate, int $averageScore, Collection $progressOverTime, int $totalQuestions, int $totalAnswers, int $totalTests, int $totalTestsPassed, int $correctlyAnsweredQuestions)
     {
         $this->passRate = $passRate;
         $this->averageScore = $averageScore;
-        $this->scoresOverTime = $scoresOverTime;
+        $this->progressOverTime = $progressOverTime;
         $this->totalQuestions = $totalQuestions;
         $this->totalAnswers = $totalAnswers;
         $this->totalTests = $totalTests;

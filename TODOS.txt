@@ -1,0 +1,25 @@
+DONE - install bugsnag
+
+COMPLETE install larastan
+
+COMPLETE complete create / store for test
+
+COMPLETE complete test handling (saving + show results)
+
+COMPLETE finetuning in show results
+
+COMPLETE update routing: dont allow to go back to form page after first submit
+
+COMPLETE put login and register form in correct layout
+
+COMPLETE menu aanpassen ifv ingelogde gebruiker
+
+add query for smart selection of questions based on previous wrong answers
+
+add stats/charts to user profile page
+
+fix small layout issues on mobile (also desktop?) + te grote whitespace tussen vragenlijst en bovenste stuk tekst
+
+socialite
+
+pagina + mail om pwd te resetten via reset mail nog in juiste layout steken

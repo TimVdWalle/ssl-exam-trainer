@@ -61,7 +61,7 @@
                         </div>
                         <form method="post" action="/auth/redirect/google">
                             @csrf
-                            
+
 {{--                            <div class="flex flex-wrap -mx-3 mb-3">--}}
 {{--                                <div class="w-full px-3">--}}
 {{--                                    <button class="btn px-0 text-white bg-gray-900 hover:bg-gray-800 w-full relative flex items-center">--}}

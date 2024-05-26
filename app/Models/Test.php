@@ -19,7 +19,13 @@ class Test extends Model
         'number_of_questions',
         'passed',  // Whether or not the user passed the session
         'user_id', // Assuming you track which user the session belongs to
-        // Any other fields relevant to the session
+         'created_at',
+         'updated_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'date',
+        'updated_at' => 'date',
     ];
 
     // Define relationships here, for example:

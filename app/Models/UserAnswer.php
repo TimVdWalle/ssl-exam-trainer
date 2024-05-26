@@ -18,6 +18,8 @@ class UserAnswer extends Model
         'question_id',
         'answer_id',
         'is_correct',
+        'created_at',
+        'updated_at',
     ];
 
     /**
