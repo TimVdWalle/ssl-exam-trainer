@@ -80,6 +80,8 @@ class GetUserMetricsAction
         $interval = $intervalData['interval'];
         $startDate = $intervalData['startDate'];
         $endDate = $intervalData['endDate'];
+        $degradeRate = $intervalData['degradeRate'];
+        $format = $intervalData['format'];
 
         switch ($interval) {
             case 'day':
@@ -104,59 +106,38 @@ class GetUserMetricsAction
             ->get();
 
         $results = collect();
+
         $loopDate = $startDate;
+        $prevCount = 0;
+        $degradation = 0;
         while($loopDate <= $endDate){
             // Increment date by the interval
             $loopDate->add($dateInterval);
 //            echo $loopDate->format('Y-m-d') . "\n : "; // Format as desired
 
-            $progressCount = $answers->where('created_at', '<=', $loopDate)->pluck('question_id')->unique()->count();
+            $realProgress = $answers->where('created_at', '<=', $loopDate)->pluck('question_id')->unique()->count();
+
+            if($prevCount === $realProgress){
+                $degradation += $degradeRate;
+            } else {
+                $degradation = 0;
+            }
+
+            $prevCount = $realProgress;
+
+//            echo($progressCount);
+//            echo($progressCount);
+//            echo(' | ');
 //            echo($progressCount);
 //            echo('<br />');
 
+            $degradedProgress = max(0, ($realProgress - $degradation));
+
             $results->push([
-                'the_date' => $loopDate,
-                'progress' => $progressCount,
+                'the_date' => (clone $loopDate)->format($format),
+                'progress' => $degradedProgress // / \App\Models\Question::count() * 100,
             ]);
-
-
-        }  ;
-
-
-//        dd($results);
-
-//        // Get the user's first and last test dates
-//        /** @var ?Carbon $firstTestDate */
-//        $firstTestDate = Test::where('user_id', $userId)->oldest('created_at')->first()->created_at ?? null;
-//        /** @var ?Carbon $lastTestDate */
-//        $lastTestDate = Test::where('user_id', $userId)->latest('created_at')->first()->created_at ?? now();
-//
-//        // Determine the total span of activity
-//        $activitySpan = $firstTestDate ? $lastTestDate->diffInDays($firstTestDate) : 0;
-//
-//        // Analyze the density of activity (tests per week)
-//        $totalTests = $userTests->count();
-//        $weeksActive = max($activitySpan / 7, 1);
-//        $testsPerWeek = $totalTests / $weeksActive;
-//
-//
-//
-//        // Determine the optimal period based on activity type
-//        if ($testsPerWeek >= 3) {
-//            // Frequent Tester: Show the last year
-//            $optimalStart = now()->subYear();
-//        } elseif ($activitySpan > 365) {
-//            // Sporadic Tester with long history: Focus on the last 6 months to a year
-//            $optimalStart = now()->subMonths(6);
-//        } else {
-//            // Concentrated Activity or Short History: Show the entire span
-//            $optimalStart = $firstTestDate;
-//        }
-//
-//        if (!$optimalStart) {
-//            return collect();
-//        }
-
+        }
 
         return $results;
     }
@@ -178,7 +159,7 @@ class GetUserMetricsAction
         }
 
         $startDate = Carbon::parse($firstTestDate);
-        $endDate = Carbon::parse($lastTestDate);
+        $endDate = Carbon::parse($lastTestDate)->endOfDay();
         $totalDays = $startDate->diffInDays($endDate);
         $totalWeeks = $startDate->diffInWeeks($endDate);
         $totalMonths = $startDate->diffInMonths($endDate);
@@ -192,17 +173,24 @@ class GetUserMetricsAction
         // Decide the interval
         if ($totalMonths > 12 || $testsPerWeek < 1) {
             $interval = 'month';
+            $degradeRate = 4;
+            $format = 'm';
         } elseif ($testsPerDay < 1) {
             $interval = 'week';
+            $degradeRate = 0.6;
+            $format = 'm-d';
         } else {
             $interval = 'day';
+            $degradeRate = 0.1;
+            $format = 'm-d';
         }
 
         return [
             'interval' => $interval,
-//            'interval' => 'day',
-            'startDate' => $startDate,
-            'endDate' => $endDate
+            'startDate' => $startDate->subMonths(2),
+            'endDate' => $endDate,
+            'degradeRate' => $degradeRate,
+            'format' => $format
         ];
     }
 }
