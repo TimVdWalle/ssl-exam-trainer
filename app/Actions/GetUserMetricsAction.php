@@ -134,7 +134,7 @@ class GetUserMetricsAction
             $degradedProgress = max(0, ($realProgress - $degradation));
 
             $results->push([
-                'the_date' => (clone $loopDate)->format($format),
+                'the_date' => (clone $loopDate)->sub($dateInterval)->format($format),
                 'progress' => $degradedProgress / \App\Models\Question::count() * 100,
             ]);
         }
