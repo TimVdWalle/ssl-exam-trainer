@@ -15,7 +15,7 @@
                     <h1 class="h1 mb-4">Proefexamen</h1>
                     <p class="text-xl text-gray-600">
                         Dit is een proefexamen. {{config('ssl_exam_trainer.questions_per_test')}} vragen werden geselecteerd uit een totaal van {{\App\Models\Question::count() }} vragen zoals die ook op het echte examen kunnen gevraagd worden.
-                        Je moet {{intval(config('ssl_exam_trainer.min_correct_to_pass') / config('ssl_exam_trainer.questions_per_test') * 100) }}% van de vragen juist hebben om geslaagd te zijn. Vragen overlaten wordt niet bestraft.
+                        Je moet {{intval(config('ssl_exam_trainer.min_correct_to_pass') / config('ssl_exam_trainer.questions_per_test') * 100) }}% van de vragen juist hebben om geslaagd te zijn. Een vraag overlaten telt als een fout antwoord.
                     </p>
                 </div>
             </div>
