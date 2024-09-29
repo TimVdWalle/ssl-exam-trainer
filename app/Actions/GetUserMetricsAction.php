@@ -149,7 +149,7 @@ class GetUserMetricsAction
         $firstTestDate = $userTests->min('created_at');
         /** @var ?Carbon $lastTestDate */
         $lastTestDate = $userTests->max('created_at');
-        
+
         if (!$firstTestDate || !$lastTestDate) {
             return [
                 'interval' => 'month',
@@ -185,6 +185,10 @@ class GetUserMetricsAction
             $interval = 'day';
             $degradeRate = 0.1;
             $format = 'm-d';
+        }
+
+        if($totalWeeks < 4){
+            $startDate = $endDate->subMonth();
         }
 
         return [
