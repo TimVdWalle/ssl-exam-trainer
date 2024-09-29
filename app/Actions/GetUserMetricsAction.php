@@ -145,6 +145,9 @@ class GetUserMetricsAction
 
     public function getInterval(Collection $userTests)
     {
+
+        dd($userTests);
+        
         /** @var ?Carbon $firstTestDate */
         $firstTestDate = $userTests->min('created_at');
         /** @var ?Carbon $lastTestDate */
