@@ -154,7 +154,9 @@ class GetUserMetricsAction
             return [
                 'interval' => 'month',
                 'startDate' => now()->subMonths(2),
-                'endDate' => now()
+                'endDate' => now(),
+                'degradeRate' => 4,
+                'format' => 'Y-m-d'
             ];
         }
 
