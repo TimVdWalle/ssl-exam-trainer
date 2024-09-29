@@ -11,6 +11,7 @@
         "laravel/framework": "^11.0",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.9",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "socialiteproviders/google": "^4.1"
     },
     "require-dev": {

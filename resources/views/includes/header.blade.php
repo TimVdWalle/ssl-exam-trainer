@@ -50,7 +50,9 @@
                         </li>
                     @endauth
 
-
+                    <li>
+                        <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('qr.show') }}">QR</a>
+                    </li>
 
                     <!-- 1st level: hover -->
 {{--                    <li--}}
@@ -170,6 +172,16 @@
                         <li>
                             <a class="flex text-gray-600 hover:text-gray-900 py-2" href="{{ route('practice-exam.create') }}">Start test</a>
                         </li>
+
+                        @auth
+                            <li>
+                                <a class="text-gray-600 hover:text-gray-900 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('dashboard.show') }}">Dashboard</a>
+                            </li>
+                        @endauth
+
+                        <li>
+                            <a class="text-gray-600 hover:text-gray-900 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('qr.show') }}">QR</a>
+                        </li>
 {{--                        <li>--}}
 {{--                            <a class="flex text-gray-600 hover:text-gray-900 py-2" href="tutorials.html">Tutorials</a>--}}
 {{--                        </li>--}}
@@ -209,7 +221,7 @@
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
+                                    <button type="submit" class="btn-sm text-gray-200 bg-gray-900 my-10 hover:bg-gray-800">
                                         Uitloggen
                                     </button>
                                 </form>
