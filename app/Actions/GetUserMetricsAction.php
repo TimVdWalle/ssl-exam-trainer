@@ -113,7 +113,7 @@ class GetUserMetricsAction
         while($loopDate <= $endDate){
             // Increment date by the interval
             $loopDate->add($dateInterval);
-            echo $loopDate->format('Y-m-d') . "\n : "; // Format as desired
+//            echo $loopDate->format('Y-m-d') . "\n : "; // Format as desired
 
             $realProgress = $answers->where('created_at', '<=', $loopDate)->pluck('question_id')->unique()->count();
 
@@ -125,11 +125,11 @@ class GetUserMetricsAction
 
             $prevCount = $realProgress;
 
-            echo($realProgress);
+//            echo($realProgress);
 //            echo($progressCount);
 //            echo(' | ');
 //            echo($progressCount);
-            echo('<br />');
+//            echo('<br />');
 
             $degradedProgress = max(0, ($realProgress - $degradation));
 
