@@ -150,6 +150,9 @@ class GetUserMetricsAction
         /** @var ?Carbon $lastTestDate */
         $lastTestDate = $userTests->max('created_at');
 
+
+        dd($userTests);
+        
         if (!$firstTestDate || !$lastTestDate) {
             return [
                 'interval' => 'month',
