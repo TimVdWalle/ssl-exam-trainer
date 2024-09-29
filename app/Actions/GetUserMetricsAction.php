@@ -153,7 +153,7 @@ class GetUserMetricsAction
         if (!$firstTestDate || !$lastTestDate) {
             return [
                 'interval' => 'month',
-                'startDate' => now()->subMonths(6),
+                'startDate' => now()->subMonths(2),
                 'endDate' => now()
             ];
         }
