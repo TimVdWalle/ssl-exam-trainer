@@ -135,7 +135,7 @@ class GetUserMetricsAction
 
             $results->push([
                 'the_date' => (clone $loopDate)->format($format),
-                'progress' => $degradedProgress // / \App\Models\Question::count() * 100,
+                'progress' => $degradedProgress / \App\Models\Question::count() * 100,
             ]);
         }
 

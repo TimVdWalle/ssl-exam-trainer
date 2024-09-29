@@ -58,7 +58,7 @@
 
                 </div>
 
-                <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-1 items-start md:max-w-2xl lg:max-w-none mb-20" data-aos-id-blocks>
+                <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-2 items-start md:max-w-2xl lg:max-w-none mb-20" data-aos-id-blocks>
                     <div style="">
                         <h1 class="text-3xl">Vooruitgang</h1>
                         <canvas id="myChart"></canvas>
