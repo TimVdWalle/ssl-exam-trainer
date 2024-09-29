@@ -149,9 +149,6 @@ class GetUserMetricsAction
         $firstTestDate = $userTests->min('created_at');
         /** @var ?Carbon $lastTestDate */
         $lastTestDate = $userTests->max('created_at');
-
-
-        dd($userTests);
         
         if (!$firstTestDate || !$lastTestDate) {
             return [
