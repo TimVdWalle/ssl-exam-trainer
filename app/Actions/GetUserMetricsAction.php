@@ -187,7 +187,7 @@ class GetUserMetricsAction
 
         return [
             'interval' => $interval,
-            'startDate' => $startDate->subMonths(2),
+            'startDate' => $startDate,
             'endDate' => $endDate,
             'degradeRate' => $degradeRate,
             'format' => $format
