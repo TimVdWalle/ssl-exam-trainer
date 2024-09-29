@@ -188,7 +188,7 @@ class GetUserMetricsAction
         }
 
         if($totalWeeks < 4){
-            $startDate = $endDate->subMonth();
+            $startDate = (clone $endDate)->subMonth();
         }
 
         return [
