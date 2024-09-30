@@ -66,6 +66,8 @@ class SelectQuestionIdsAction
                 $result = $result->concat($additionalQuestionIDs->toArray());
             }
 
+            dd($wrongAnsweredQuestionIds, $previouslyAnsweredQuestionIds, $neverAnsweredQuestionIds, $additionalQuestionIDs ?? null, $setSize, $result);
+
             return $result->shuffle();
         } else {
             // If user is not logged in, select randomly
