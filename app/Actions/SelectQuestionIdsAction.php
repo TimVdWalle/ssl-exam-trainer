@@ -53,7 +53,7 @@ class SelectQuestionIdsAction
 
             // finally, if not enough questions yet, select again from the whole pool
             // allowing for previously answered questions (both correct or wrong) to be selected
-            $setSize = $wrongAnsweredQuestionIds->count() + $neverAnsweredQuestionIds->count();
+            $setSize = $questionsPerTest - ($wrongAnsweredQuestionIds->count() + $neverAnsweredQuestionIds->count());
             if ($setSize < $questionsPerTest) {
                 $additionalQuestionIDs = Question::query()
                     ->whereNotIn('id', $wrongAnsweredQuestionIds)
