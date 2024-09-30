@@ -66,7 +66,7 @@ class SelectQuestionIdsAction
                 $result = $result->concat($additionalQuestionIDs->toArray());
             }
 
-//            dd($wrongAnsweredQuestionIds, $previouslyAnsweredQuestionIds, $neverAnsweredQuestionIds, $additionalQuestionIDs ?? null, $setSize, $result);
+            dd($wrongAnsweredQuestionIds, $previouslyAnsweredQuestionIds, $neverAnsweredQuestionIds, $additionalQuestionIDs ?? null, $setSize, $result);
 
             return $result->shuffle();
         } else {
