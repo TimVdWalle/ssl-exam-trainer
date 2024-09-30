@@ -32,8 +32,9 @@ class SelectQuestionIdsAction
                 ->groupBy('question_id')
                 ->havingRaw('SUM(CASE WHEN is_correct = 0 THEN 1 ELSE 0 END) > SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END)')
                 ->orderBy(DB::raw('RAND()'))
+
                 ->limit($maxWrongQuestions)
-                ->pluck('question_id')//                ->dd()
+                ->pluck('question_id')
             ;
 
             // next, select some questions that were never answered before and for that we need previously answered question ids
@@ -59,7 +60,7 @@ class SelectQuestionIdsAction
                     ->whereNotIn('id', $wrongAnsweredQuestionIds)
                     ->whereNotIn('id', $neverAnsweredQuestionIds)
                     ->distinct()
-                    ->orderBy(DB::raw('RAND()'))
+                    ->orderByRaw('wrong_count - right_count DESC, wrong_count DESC, RAND()')
                     ->limit($questionsPerTest - $setSize)
                     ->pluck('id');
 
