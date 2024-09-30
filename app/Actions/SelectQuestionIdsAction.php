@@ -60,7 +60,7 @@ class SelectQuestionIdsAction
                     ->whereNotIn('id', $wrongAnsweredQuestionIds)
                     ->whereNotIn('id', $neverAnsweredQuestionIds)
                     ->distinct()
-                    ->orderByRaw('wrong_count - right_count DESC, wrong_count DESC, RAND()')
+                    ->orderBy(DB::raw('RAND()'))
                     ->limit($questionsPerTest - $setSize)
                     ->pluck('id');
 
