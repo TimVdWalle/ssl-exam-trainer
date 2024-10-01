@@ -38,16 +38,16 @@
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
                             </div>
-                            <div class="flex flex-wrap -mx-3 mb-4">
-                                <div class="w-full px-3">
-                                    <div class="flex justify-between">
-                                        <label class="flex items-center">
-                                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                                            <span class="text-gray-600 ml-2">Ingelogd blijven</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+{{--                            <div class="flex flex-wrap -mx-3 mb-4">--}}
+{{--                                <div class="w-full px-3">--}}
+{{--                                    <div class="flex justify-between">--}}
+{{--                                        <label class="flex items-center">--}}
+{{--                                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">--}}
+{{--                                            <span class="text-gray-600 ml-2">Ingelogd blijven</span>--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="flex flex-wrap -mx-3 mt-6">
                                 <div class="w-full px-3">
                                     <button type="submit" class="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Inloggen</button>
