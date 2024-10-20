@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Cache;
 class QrController extends Controller
 {
     /**
-     * @param string $hash
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
     public function show()

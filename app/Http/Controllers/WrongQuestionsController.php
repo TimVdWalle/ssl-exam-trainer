@@ -19,6 +19,7 @@ class WrongQuestionsController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function show(SelectWrongQuestionAction $selectWrongQuestionAction)
     {
@@ -28,12 +29,9 @@ class WrongQuestionsController extends Controller
 
         $wrongQuestions = $selectWrongQuestionAction();
 
-        if (!$wrongQuestions || !$wrongQuestions->count()) {
-            return redirect()->route('practice-exam.create');
+        if (!$wrongQuestions->count()) {
+            return redirect()->route('dashboard.show');
         }
-
-
-//        dd($wrongQuestions);
 
         return view('wrong-questions.show', compact( 'wrongQuestions'));
     }
