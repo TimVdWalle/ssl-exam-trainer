@@ -48,6 +48,9 @@
                         <li>
                             <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('dashboard.show') }}">Dashboard</a>
                         </li>
+                        <li>
+                            <a class="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('wrong-questions.show') }}">Meest gemaakte fouten</a>
+                        </li>
                     @endauth
 
                     <li>
@@ -176,6 +179,9 @@
                         @auth
                             <li>
                                 <a class="text-gray-600 hover:text-gray-900 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('dashboard.show') }}">Dashboard</a>
+                            </li>
+                            <li>
+                                <a class="text-gray-600 hover:text-gray-900 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('wrong-questions.show') }}">Meest gemaakte fouten</a>
                             </li>
                         @endauth
 
