@@ -9,10 +9,12 @@ use Illuminate\View\Component;
 class Answer extends Component
 {
     public \App\Models\Answer $answer;
+    public bool $showcorrect;
 
-    public function __construct(\App\Models\Answer $answer)
+    public function __construct(\App\Models\Answer $answer, bool $showcorrect = false)
     {
         $this->answer = $answer;
+        $this->showcorrect = $showcorrect;
     }
 
     /**
