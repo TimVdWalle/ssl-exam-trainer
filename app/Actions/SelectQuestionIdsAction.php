@@ -17,11 +17,28 @@ class SelectQuestionIdsAction
     {
         /** @var int $questionsPerTest */
         $questionsPerTest = config('ssl_exam_trainer.questions_per_test');
+
+        /** @var int $correctWrongRatio */
+        $correctWrongRatio = config('ssl_exam_trainer.correct_wrong_ratio');
+
         $questionsPerTest = intval($questionsPerTest);
         $maxWrongQuestions = intval(floor($questionsPerTest * config('ssl_exam_trainer.max_wrong_percentage') / 100));
 
         if (Auth::check()) {
             $userId = Auth::id();
+
+            $correctlyAnsweredQuestions = UserAnswer::query()
+                ->select('question_id', DB::raw('MAX(created_at) as latest'))
+                ->where('user_id', $userId)
+                ->where('is_correct', true)
+                ->groupBy('question_id')
+                ->havingRaw('MAX(is_correct) = true')
+                ->count();
+
+            $totalQuestionsCount = config('ssl_exam_trainer.total_questions_count');
+            if($correctlyAnsweredQuestions >= $totalQuestionsCount * 0.95){
+                $maxWrongQuestions = intval(floor($questionsPerTest * config('ssl_exam_trainer.max_wrong_percentage_when_all_questions_answered') / 100));
+            }
 
             // first, select some questions that were previously answered wrong more than they were answered correct by the user
             $wrongAnsweredQuestionIds = UserAnswer::query()
@@ -30,7 +47,7 @@ class SelectQuestionIdsAction
                     DB::raw('SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END) as right_count'))
                 ->where('user_id', $userId)
                 ->groupBy('question_id')
-                ->havingRaw('SUM(CASE WHEN is_correct = 0 THEN 1 ELSE 0 END) > SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END)')
+                ->havingRaw("(SUM(CASE WHEN is_correct = 0 THEN 1 ELSE 0 END) * {$correctWrongRatio}) >= (SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END))")
                 ->orderBy(DB::raw('RAND()'))
 
                 ->limit($maxWrongQuestions)

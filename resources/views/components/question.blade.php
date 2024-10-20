@@ -7,7 +7,10 @@
     </h3>
     <div class="-my-3">
         @foreach($question->answers as $answer)
-            <x-answer :answer="$answer" />
+            <x-answer
+                :answer="$answer"
+                :showcorrect="$showcorrect"
+            />
         @endforeach
     </div>
     <span class="question-number">({{$question->number}})</span>

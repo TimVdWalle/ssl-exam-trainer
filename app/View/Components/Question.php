@@ -10,11 +10,13 @@ class Question extends Component
 {
     public \App\Models\Question $question;
     public int $iteration;
+    public bool $showcorrect;
 
-    public function __construct(\App\Models\Question $question, int $iteration)
+    public function __construct(\App\Models\Question $question, int $iteration, bool $showcorrect = false)
     {
         $this->question = $question;
         $this->iteration = $iteration;
+        $this->showcorrect = $showcorrect;
     }
 
     /**

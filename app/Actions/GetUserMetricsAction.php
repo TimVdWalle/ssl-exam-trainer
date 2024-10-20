@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserAnswer;
 use DateInterval;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -68,15 +69,14 @@ class GetUserMetricsAction
     }
 
     /**
-     * @param int $userId
      * @param $userTests
-     * @param string $interval
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
+     * @param int $userId
+     * @param array $intervalData
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
      * @throws Exception
      */
     private function getProgressOverTime($userTests, int $userId, array $intervalData)
     {
-        $results = collect();
         $interval = $intervalData['interval'];
         $startDate = $intervalData['startDate'];
         $endDate = $intervalData['endDate'];
@@ -143,7 +143,11 @@ class GetUserMetricsAction
     }
 
 
-    public function getInterval(Collection $userTests)
+    /**
+     * @param Collection<int, Test> $userTests
+     * @return array<string, float|Carbon|int|string>
+     */
+    public function getInterval(Collection $userTests): array
     {
         /** @var ?Carbon $firstTestDate */
         $firstTestDate = $userTests->min('created_at');
