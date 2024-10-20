@@ -33,9 +33,6 @@
                                 :iteration="$loop->iteration"
                                 :showcorrect="true"
                             />
-
-                            <hr>
-
                         @endforeach
                 </div>
 
